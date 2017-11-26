@@ -20,7 +20,10 @@ for letter in string.uppercase:
 
 # print numerals
 
-targetCapHeight = 650
+targetCapHeight = AskString("Enter your target height for caps and numerals:", "", "Target Cap Height")
+
+targetCapHeight = int(float(targetCapHeight.upper()))
+# targetCapHeight = 650
 currentCapHeight = f.info.capHeight
 # capScale = targetCapHeight / currentCapHeight
 
@@ -59,25 +62,30 @@ def scaleNums():
                     g.update()
 
 def scaleCaps():
-    capScale = targetNumHeight / targetCapHeight
+    capScale = targetCapHeight / currentCapHeight
+    print capScale
     if currentCapHeight != targetCapHeight:
         yesNoQuestion = "This will scale all your caps to " + str(targetCapHeight) + ". " + "Continue?"
         confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
         print confirmScale
         if confirmScale == 1:
+            newCapHeight = int(float(f.info.capHeight * capScale))
+            f.info.capHeight = newCapHeight
             for g in f:
                 if g.name in uppercase:
-                    print "scaled ", g.name, " to ", targetCapHeight
                     g.scale(capScale)
                     g.width = g.width * capScale
                     g.update()
-            f.info.capHeight = int(float(f.info.capHeight * capScale))
+                    print "scaled ", g.name, " to ", newCapHeight
+            
 
 capScale = targetNumHeight / targetCapHeight
 print int(float(f.info.capHeight * capScale))
 ###### cue scaling ######
-# scaleCaps()
-# scaleNums()
+scaleCaps()
+scaleNums()
+
+###### to do: scale punctuation
 
 
 
