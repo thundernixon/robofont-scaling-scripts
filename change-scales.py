@@ -20,9 +20,9 @@ for letter in string.uppercase:
 
 # print numerals
 
-targetCapHeight = 680
+targetCapHeight = 650
 currentCapHeight = f.info.capHeight
-capScale = targetCapHeight / currentCapHeight
+# capScale = targetCapHeight / currentCapHeight
 
 
 
@@ -59,18 +59,25 @@ def scaleNums():
                     g.update()
 
 def scaleCaps():
-    for g in f:
-        if currentCapHeight != targetCapHeight:
-            if g.name in uppercase:
-                print "scaled ", g.name, " to ", targetCapHeight
-                g.scale(capScale)
-                g.width = g.width * capScale
-                g.update()
+    capScale = targetNumHeight / targetCapHeight
+    if currentCapHeight != targetCapHeight:
+        yesNoQuestion = "This will scale all your caps to " + str(targetCapHeight) + ". " + "Continue?"
+        confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
+        print confirmScale
+        if confirmScale == 1:
+            for g in f:
+                if g.name in uppercase:
+                    print "scaled ", g.name, " to ", targetCapHeight
+                    g.scale(capScale)
+                    g.width = g.width * capScale
+                    g.update()
             f.info.capHeight = int(float(f.info.capHeight * capScale))
 
+capScale = targetNumHeight / targetCapHeight
+print int(float(f.info.capHeight * capScale))
 ###### cue scaling ######
 # scaleCaps()
-scaleNums()
+# scaleNums()
 
 
 
