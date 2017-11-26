@@ -70,7 +70,6 @@ def scaleCaps():
 ###### cue scaling ######
 scaleCaps()
 scaleNums()
-    # if currentNumHeight != targetNumHeight:
 
 
 # numeralScale = .91
