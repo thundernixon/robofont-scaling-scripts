@@ -1,5 +1,6 @@
 import string 
 from mojo.drawingTools import *
+from robofab.interface.all.dialogs import AskString
 
 f = CurrentFont()
 # print f
@@ -18,7 +19,7 @@ for letter in string.uppercase:
 
 # print numerals
 
-targetCapHeight = 650
+targetCapHeight = 680
 currentCapHeight = f.info.capHeight
 capScale = targetCapHeight / currentCapHeight
 
@@ -30,27 +31,19 @@ def getNumHeight(numeralToCheckHeight):
     for g in f:
         if g.name == numeralToCheckHeight:
             for counter in g:
-                # THIS ONLY WORKS IF YOUR TARGET NUMERAL HAS ITS FIRST POINT AT THE TOP
                 currentNumHeight = counter.points[0].y
                 print "currentNumHeight is ", currentNumHeight
                 return currentNumHeight
 
 targetNumHeight = targetCapHeight
 currentNumHeight = getNumHeight("seven")
-numScale = targetNumHeight / currentNumHeight
-
-            
-    # if g.name in numerals:
-    #     print "yo", g.name
-    #     print "yo"
-# print "A".width
-
-# for contour in A:
-#     print contour
 
 def scaleNums():
+    question = "Is your num height " + str(currentNumHeight) + "?" + " If not, please enter it:"
+    customNumHeight = AskString(question, currentNumHeight, "Current Numeral Height")
+    numScale = targetNumHeight / customNumHeight
     for g in f:
-        if currentNumHeight != targetNumHeight:
+        if customNumHeight != targetNumHeight:
             if g.name in numerals:
                 print "scaled ", g.name, " to ", targetNumHeight
                 g.scale(numScale)
@@ -72,7 +65,6 @@ scaleCaps()
 scaleNums()
 
 
-# numeralScale = .91
 
 
 
