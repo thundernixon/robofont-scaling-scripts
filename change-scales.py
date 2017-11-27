@@ -4,32 +4,17 @@ from robofab.interface.all.dialogs import AskString
 from robofab.interface.all.dialogs import AskYesNoCancel
 
 f = CurrentFont()
-# print f
-# print f.path
-# print f.info.xHeight
 
-glyphs = []
 uppercase = []
 numerals = ['zero','one','two','three','four','five','six','seven','eight','nine']
 
 for letter in string.uppercase:
     uppercase += letter
-    
-# for numeral in string.digits:
-#     numerals += numeral
-
-# print numerals
 
 targetCapHeight = AskString("Enter your target height for caps and numerals:", "", "Target Cap Height")
 
 targetCapHeight = int(float(targetCapHeight.upper()))
-# targetCapHeight = 650
 currentCapHeight = f.info.capHeight
-# capScale = targetCapHeight / currentCapHeight
-
-
-
-# print capScale
 
 def getNumHeight(numeralToCheckHeight):
     for g in f:
@@ -45,7 +30,6 @@ currentNumHeight = getNumHeight("seven")
 def scaleNums():
     question = "Is your num height " + str(currentNumHeight) + "?" + " If not, please enter it:"
     customNumHeight = AskString(question, currentNumHeight, "Current Numeral Height")
-    # print help(customNumHeight)
     customNumHeight = int(float(customNumHeight.upper()))
     
     yesNoQuestion = "This will scale all your numerals to " + str(targetNumHeight) + ". " + "Continue?"
