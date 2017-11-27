@@ -1,11 +1,17 @@
 from robofab.interface.all.dialogs import AskYesNoCancel
+from robofab.interface.all.dialogs import AskString
 
 # g = CurrentGlyph()
 f = CurrentFont()
 
 glyphsWithAscenders = ['b','d','f','h','k','l']
 
-targetAscender = 693
+
+
+
+# targetAscender = 693
+targetAscender = AskString("Please enter the ascender you would like:", "")
+targetAscender = int(float(targetAscender))
 currentAscender = f.info.ascender
 moveAscenderBy = targetAscender - currentAscender
 
@@ -27,6 +33,6 @@ def moveAscenders():
                                 g.update()
                 print "moved ascender of ", g.name, " by ", str(moveAscenderBy)
 
-    f.info.ascender = targetAscender
+        f.info.ascender = targetAscender
 
 moveAscenders()
