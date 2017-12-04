@@ -6,9 +6,6 @@ f = CurrentFont()
 
 glyphsWithAscenders = ['b','d','f','h','k','l']
 
-
-
-
 # targetAscender = 693
 targetAscender = AskString("Please enter the ascender you would like:", "")
 targetAscender = int(float(targetAscender))
