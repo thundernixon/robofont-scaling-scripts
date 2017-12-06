@@ -2,23 +2,26 @@ from robofab.interface.all.dialogs import AskYesNoCancel
 
 f = CurrentFont()
 
-currentHeight = f.info.ascender + abs(f.info.descender)
+## get the glyphs you have selected as a list
+glyphSelection = f.selection
 
-targetHeight = 1000
-
-scaleBy = targetHeight / currentHeight
-
-print scaleBy
+# just to check that it's working
+print glyphSelection
 
 # yesNoQuestion = "This will scale *all* your glyphs in " + f + " by " + str(scaleBy) + ". " + "Continue?"
 # confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
 
 def roundPoints():
     for g in f:
-        for contour in g:
-            for seg in contour:
-                for point in seg:
-                    print point.x, point.y
-                    # point.x = round(point.x)
-                    # point.y = round(point.y)                    
+        g.prepareUndo()
+        if g.name in glyphSelection:
+            for contour in g:
+                for seg in contour:
+                    for point in seg:
+                        print point.x, point.y
+                        point.x = round(point.x)
+                        point.y = round(point.y)    
+                        print point.x, point.y
+        g.performUndo()
+                        
 roundPoints()

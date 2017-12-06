@@ -36,6 +36,7 @@ def skewSelection():
             if g.name in glyphSelection:
                 # skew every selected glyph with the value the user has entered
                 g.skew(skewValue)
+                g.update()
             # undo, if the user asks to in the font view while glyphs are selected
             g.performUndo()
 
