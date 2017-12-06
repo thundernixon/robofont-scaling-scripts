@@ -10,10 +10,13 @@ scaleBy = targetHeight / currentHeight
 
 print scaleBy
 
-yesNoQuestion = "This will scale *all* your glyphs by " + str(scaleBy) + ". " + "Continue?"
-confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
+fontName = f.info.familyName + " " + f.info.styleName
+
+
 
 def scaleGlyphsMetricsAndBlueValues():
+    yesNoQuestion = "This will scale *all* your glyphs in " + fontName + " by " + str(scaleBy) + ". " + "Continue?"
+    confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
     if confirmScale == 1:
         f.info.ascender = f.info.ascender * scaleBy
         f.info.descender = f.info.descender * scaleBy
@@ -27,3 +30,5 @@ def scaleGlyphsMetricsAndBlueValues():
             g.scale(scaleBy)
             g.width = g.width * scaleBy
             g.update()
+
+scaleGlyphsMetricsAndBlueValues()

@@ -1,8 +1,9 @@
 from robofab.interface.all.dialogs import AskYesNoCancel
 from robofab.interface.all.dialogs import AskString
 
-# g = CurrentGlyph()
+g = CurrentGlyph()
 f = CurrentFont()
+
 
 glyphsWithAscenders = ['b','d','f','h','k','l']
 
@@ -20,7 +21,9 @@ def moveAscenders():
     print confirmScale
     if confirmScale == 1: 
         for g in f:
+            g.prepareUndo()
             if g.name in glyphsWithAscenders:   
+                g.selected = True
                 for contour in g:
                     for seg in contour:
                         for point in seg:
@@ -29,7 +32,7 @@ def moveAscenders():
                                 point.move((0, moveAscenderBy))
                                 g.update()
                 print "moved ascender of ", g.name, " by ", str(moveAscenderBy)
-
+            g.performUndo()
         f.info.ascender = targetAscender
 
 moveAscenders()

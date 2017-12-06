@@ -38,12 +38,16 @@ def scaleNums():
     numScale = targetNumHeight / customNumHeight
     if confirmScale == 1:
         for g in f:
+            
             if customNumHeight != targetNumHeight:
+                g.prepareUndo()
                 if g.name in numerals:
+                    g.selected = True
                     print "scaled ", g.name, " to ", targetNumHeight
                     g.scale(numScale)
                     g.width = g.width * numScale
                     g.update()
+                g.performUndo()
 
 def scaleCaps():
     capScale = targetCapHeight / currentCapHeight
@@ -52,16 +56,19 @@ def scaleCaps():
         yesNoQuestion = "This will scale all your caps to " + str(targetCapHeight) + ". " + "Continue?"
         confirmScale = AskYesNoCancel(yesNoQuestion ,title='Just Checking...', default=0)
         print confirmScale
+        
         if confirmScale == 1:
             newCapHeight = int(float(f.info.capHeight * capScale))
             f.info.capHeight = newCapHeight
             for g in f:
+                g.prepareUndo()
                 if g.name in uppercase:
+                    g.selected = True
                     g.scale(capScale)
                     g.width = g.width * capScale
                     g.update()
                     print "scaled ", g.name, " to ", newCapHeight
-            
+                g.performUndo()
 
 capScale = targetNumHeight / targetCapHeight
 print int(float(f.info.capHeight * capScale))
